@@ -1,0 +1,76 @@
+﻿@model FriendsFormViewModel;
+@using GamesExchange.WebMvc.Helpers;
+@using Identification = GamesExchange.Model.Identification;
+@{
+    ViewData["Title"] = "Amigos";
+    ViewData["ActiveMenu"] = "FRIENDS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0">Amigos</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-body">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">@(Model.Id == 0 ? "Incluir" : "Editar")</h4>
+                </div>
+                <div class="card-body">
+                    <form action="@Url.Action("Save")" method="post" class="form form-horizontal">
+                        <input type="hidden" name="viewModel.Id" value="@Model.Id" />
+                        <input type="hidden" name="viewModel.HasUser" value="@Model.HasUser" />
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Nome</label>
+                                    <input type="text" required class="form-control" name="viewModel.FirstName" value="@Model.FirstName">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Sobrenome</label>
+                                    <input type="text" required class="form-control" name="viewModel.LastName" value="@Model.LastName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Email:</label>
+                                    <input type="text" required class="form-control" name="viewModel.Email" value="@Model.Email">
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Celular</label>
+                                    <input type="text" required class="form-control" name="viewModel.CellNumber" value="@Model.CellNumber">
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Telefone</label>
+                                    <input type="text" required class="form-control" name="viewModel.PhoneNumber" value="@Model.PhoneNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-12">
+                                <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light"><i data-feather="save"></i> Salvar</button>
+                                <a href="@Url.Action("Index")" class="btn btn-secondary me-1 waves-effect waves-float waves-light"><i data-feather="x"></i> Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

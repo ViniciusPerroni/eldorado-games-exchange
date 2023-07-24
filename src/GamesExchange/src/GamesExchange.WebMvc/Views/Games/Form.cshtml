@@ -1,0 +1,82 @@
+﻿@model GameFormViewModel;
+@using GamesExchange.WebMvc.Helpers;
+@using Games = GamesExchange.Model.Games;
+@{
+    ViewData["Title"] = "Games";
+    ViewData["ActiveMenu"] = "GAMES";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0">Games</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-body">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">@(Model.Id == 0 ? "Incluir" : "Editar")</h4>
+                </div>
+                <div class="card-body">
+                    <form action="@Url.Action("Save")" method="post" class="form form-horizontal">
+                        <input type="hidden" name="viewModel.Id" value="@Model.Id" />
+                        <input type="hidden" name="viewModel.OwnerId" value="1" />
+                        <div class="row">
+                            <div class="col-md-5 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Nome</label>
+                                    <input type="text" required class="form-control" name="viewModel.Name" value="@Model.Name">
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Preço</label>
+                                    <input type="text" required class="form-control" name="viewModel.Price" value="@Model.Price">
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Console</label>
+                                    <select class="form-control" name="viewModel.Console" asp-for="@Model.Console">
+                                        <option></option>
+                                        @foreach (var enumConsole in @EnumHelper<Games.Console>.GetValues(Games.Console.GameBoy))
+                                        {
+                                            var descriptionEnumConsole = EnumHelper<Games.Console>.GetDisplayValue(enumConsole);
+                                            <option value="@enumConsole">@descriptionEnumConsole</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Desenvolvedora</label>
+                                    <select class="form-control" name="viewModel.Studio" asp-for="@Model.Studio">
+                                        <option></option>
+                                        @foreach (var enumStudio in @EnumHelper<Games.Studio>.GetValues(Games.Studio.NaughtyDog))
+                                        {
+                                            var descriptionEnumStudio = EnumHelper<Games.Studio>.GetDisplayValue(enumStudio);
+                                            <option value="@enumStudio">@descriptionEnumStudio</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-12">
+                                <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light"><i data-feather="save"></i> Salvar</button>
+                                <a href="@Url.Action("Index")" class="btn btn-secondary me-1 waves-effect waves-float waves-light"><i data-feather="x"></i> Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

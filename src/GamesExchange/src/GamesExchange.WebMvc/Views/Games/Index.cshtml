@@ -1,0 +1,104 @@
+﻿@model GameListViewModel;
+@using GamesExchange.WebMvc.Helpers;
+@using Games = GamesExchange.Model.Games;
+@{
+    ViewData["Title"] = "Games";
+    ViewData["ActiveMenu"] = "GAMES";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0">Games</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-body">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Filtro</h4>
+                </div>
+                <div class="card-body">
+                    <form action="@Url.Action("Index")" class="form form-horizontal">
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Nome</label>
+                                    <input type="text" class="form-control" name="Filter.Name" value="@Model.Filter.Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-1">
+                                    <label class="form-label">Console</label>
+                                    <select class="form-control" name="Filter.Console" asp-for="@Model.Filter.Console">
+                                        <option></option>
+                                        @foreach (var enumConsole in @EnumHelper<Games.Console>.GetValues(Games.Console.Atari2600))
+                                        {
+                                            var descriptionEnumConsole = EnumHelper<Games.Console>.GetDisplayValue(enumConsole);
+                                            <option value="@enumConsole">@descriptionEnumConsole</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-12">
+                                <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light"><i data-feather="filter"></i> Filtrar</button>
+                                <a href="@Url.Action("Create")" class="btn btn-secondary me-1 waves-effect waves-float waves-light"><i data-feather="plus-square"></i> Incluir</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Listagem</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Console</th>
+                                <th>Desenvolvedora</th>
+                                <th>Dono</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach(var game in Model.Data)
+                        {
+                            var descriptionEnumConsole = EnumHelper<Games.Console>.GetDisplayValue(game.Console);
+                            var descriptionEnumStudio = EnumHelper<Games.Studio>.GetDisplayValue(game.Studio);
+                            <tr>
+                                <td>@game.Name</td>
+                                <td>@descriptionEnumConsole</td>
+                                <td>@descriptionEnumStudio</td>
+                                <td>@game.Owner.Person.FirstName</td>
+                                <td><span class="badge rounded-pill badge-light-primary me-1">Disponível</span></td>
+                                <td>
+                                    <a href="@Url.Action("Edit", new { id = game.Id })" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"><i data-feather="edit"></i></a>
+                                    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Excluir"><i data-feather="trash"></i></button>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+                <partial name="~/Views/Shared/_Pagination.cshtml" model="Model.Pagination" />
+            </div>
+        </div>
+    </div>
+</div>

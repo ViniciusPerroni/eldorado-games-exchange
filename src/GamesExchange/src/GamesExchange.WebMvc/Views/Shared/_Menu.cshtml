@@ -1,0 +1,36 @@
+﻿<!-- BEGIN: Main Menu-->
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+    <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+            <li class="nav-item mr-auto">
+                <a class="navbar-brand" href="../../../starter-kit/ltr/vertical-menu-template/">
+                    <h2 class="brand-text">Games Exchange</h2>
+                </a>
+            </li>
+            <li class="nav-item nav-toggle">
+                <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
+                    <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
+                    <i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="shadow-bottom"></div>
+    <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+            <li class="nav-item @(ViewData["ActiveMenu"] == "HOME" ? "active" : "")">
+                <a class="d-flex align-items-center" href="@Url.Action("Index", "Home")"><i data-feather="circle"></i><span class="menu-title text-truncate" data-i18n="Atendimento">Home</span></a>
+            </li>
+            <li class="nav-item @(ViewData["ActiveMenu"] == "GAMES" ? "active" : "")">
+                <a class="d-flex align-items-center" href="@Url.Action("Index", "Games")"><i data-feather="circle"></i><span class="menu-title text-truncate" data-i18n="Hóspedes">Games</span></a>
+            </li>
+            <li class="nav-item @(ViewData["ActiveMenu"] == "FRIENDS" ? "active" : "")">
+                <a class="d-flex align-items-center" href="@Url.Action("Index", "Friends")"><i data-feather="circle"></i><span class="menu-title text-truncate" data-i18n="Comercial">Amigos</span></a>
+            </li>
+            <li class="nav-item @(ViewData["ActiveMenu"] == "USERS" ? "active" : "")">
+                <a class="d-flex align-items-center" href="@Url.Action("Index", "Users")"><i data-feather="circle"></i><span class="menu-title text-truncate" data-i18n="Financeiro">Usuários</span></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- END: Main Menu-->
